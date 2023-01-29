@@ -1,17 +1,20 @@
 const { issue } = require("./holonym_wasm_issuer.js");
 
 function formatFr (frString) { return frString.replace("Fr(","").replace(")","") };
-function frToBigInt (frString) { return BigInt(formatFr(frString)) };
+
+// Note used anymore because JSON doesn't like BigInts, making it impractical to transmit over HTTP
+// function frToBigInt (frString) { return BigInt(formatFr(frString)) };
+
 function formatCreds (creds) { 
     const c = {
-        addr: frToBigInt(creds.address),
-        secret: frToBigInt(creds.secret),
+        addr: formatFr(creds.address),
+        secret: formatFr(creds.secret),
         customFields: [
-            frToBigInt(creds.custom_fields[0]), 
-            frToBigInt(creds.custom_fields[1])
+            formatFr(creds.custom_fields[0]), 
+            formatFr(creds.custom_fields[1])
         ],
-        iat: frToBigInt(creds.iat),
-        scope: frToBigInt(creds.scope)
+        iat: formatFr(creds.iat),
+        scope: formatFr(creds.scope)
     }
 
     // For convenience, also give user creds as they appear serialized in the preimage to the leaf
@@ -19,18 +22,18 @@ function formatCreds (creds) {
     return c;
 }
 function formatLeaf (leaf) { 
-    return frToBigInt(leaf)
+    return formatFr(leaf)
 }
 function formatPubkey (pk) {
     return {
-        x: frToBigInt(pk[0]),
-        y: frToBigInt(pk[1])
+        x: formatFr(pk[0]),
+        y: formatFr(pk[1])
     }
 }
 function formatSignature (sig) {
     return {
-        R8: { x: frToBigInt(sig.r_b8[0]), y: frToBigInt(sig.r_b8[1]) },
-        S: BigInt(sig.s)
+        R8: { x: formatFr(sig.r_b8[0]), y: formatFr(sig.r_b8[1]) },
+        S: "0x"+BigInt(sig.s).toString(16)
     }
 }
 function format (issuerResponse) {
