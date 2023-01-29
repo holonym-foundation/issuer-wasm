@@ -5,7 +5,7 @@
 supply a private key, and two custom fields in the credential you want to issue. The timestamp, issuer address, scope, and a random secret will automatically be included, so there is no need to worry about those.
 example: 
 ```
-const { issue } = require("holonym-wasm-issuer");
+const { issue, getPubkey, getAddress } = require("holonym-wasm-issuer");
 require("dotenv").config();
 
 // Private key should be a string of 32 hex characters (no 0x)
@@ -24,6 +24,9 @@ const field2 = "2603784193916030667265976259156130949263115346292859097693709746
 
 const response = issue(privateKey, field1, field2);
 console.log("issuer gave the response: ", response);
+
+console.log("issuer public key", getPubkey(privateKey));
+console.log("and address", getAddress(privateKey));
 ```
 *output*:
 ```
@@ -51,4 +54,9 @@ issuer gave the response:  {
     S: 403571639872669826774084985739216852744133718822265605075263978864519036472n
   }
 }
+issuer public key {
+  x: 13620449171284869818860687899896152941890489758759740138015166671971279862663n,
+  y: 16427782134925018302906992742718507215945455572464721042072940320474808580392n
+}
+and address 1800252790190408162496944851144659187813457198890711068413419637171073980819n
 ```
