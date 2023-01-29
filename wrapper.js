@@ -45,12 +45,12 @@ function issueAdapter(privateKey, field1, field2) {
 
 // Returns pubKey from privKey (albeit not in most efficient way!)
 function getPubkey(privKey) {
-    return issueAdapter(privateKey, "69", "69").pubkey
+    return issueAdapter(privKey, "69", "69").pubkey
 }
 
 // Returns address from privKey (albeit not in most efficient way!)
-function getAddress(privateKey) {
-    return issueAdapter(privateKey, "54321", "1234").credentials.addr
+function getAddress(privKey) {
+    return issueAdapter(privKey, "54321", "1234").credentials.addr
 }
 
 module.exports = {
