@@ -13,7 +13,10 @@ function formatCreds (creds) {
         iat: frToBigInt(creds.iat),
         scope: frToBigInt(creds.scope)
     }
-    return c
+
+    // For convenience, also give user creds as they appear serialized in the preimage to the leaf
+    c.serializedAsPreimage = [c.addr, c.secret, c.customFields[0], c.customFields[1], c.iat, c.scope]; 
+    return c;
 }
 function formatLeaf (leaf) { 
     return frToBigInt(leaf)
@@ -32,10 +35,11 @@ function formatSignature (sig) {
 }
 function format (issuerResponse) {
     return {
-        credentials: formatCreds(issuerResponse.credentials),
+        creds: formatCreds(issuerResponse.credentials),
         leaf : formatLeaf(issuerResponse.leaf),
         pubkey: formatPubkey(issuerResponse.pubkey),
         signature: formatSignature(issuerResponse.signature),
+
     } 
 }
 // adapter for call to issue(private_key, field1, field2) which returns a nicely-formatted JSON object
@@ -50,7 +54,7 @@ function getPubkey(privKey) {
 
 // Returns address from privKey (albeit not in most efficient way!)
 function getAddress(privKey) {
-    return issueAdapter(privKey, "54321", "1234").credentials.addr
+    return issueAdapter(privKey, "54321", "1234").creds.addr
 }
 
 module.exports = {
