@@ -1,5 +1,7 @@
 # Holonym Issuer WASM Bindings
-usage:
+## Installation
+`npm i holonym-wasm-issuer`
+## Usage
 supply a private key, and two custom fields in the credential you want to issue. The timestamp, issuer address, scope, and a random secret will automatically be included, so there is no need to worry about those.
 example: 
 ```
