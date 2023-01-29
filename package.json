@@ -5,6 +5,10 @@
   ],
   "description": "WASM bindings to run a Holonym issuer",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holonym-foundation/issuer-wasm.git"
+},
   "files": [
     "holonym_wasm_issuer_bg.wasm",
     "holonym_wasm_issuer.js",

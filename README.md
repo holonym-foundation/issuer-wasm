@@ -23,4 +23,3 @@ const field2 = "2603784193916030667265976259156130949263115346292859097693709746
 const response = issue(privateKey, field1, field2);
 console.log("issuer gave the response: ", response);
 ```
-
