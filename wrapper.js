@@ -7,7 +7,7 @@ function formatFr (frString) { return frString.replace("Fr(","").replace(")","")
 
 function formatCreds (creds) { 
     const c = {
-        addr: formatFr(creds.address),
+        issuerAddress: formatFr(creds.address),
         secret: formatFr(creds.secret),
         customFields: [
             formatFr(creds.custom_fields[0]), 
@@ -18,7 +18,7 @@ function formatCreds (creds) {
     }
 
     // For convenience, also give user creds as they appear serialized in the preimage to the leaf
-    c.serializedAsPreimage = [c.addr, c.secret, c.customFields[0], c.customFields[1], c.iat, c.scope]; 
+    c.serializedAsPreimage = [c.issuerAddress, c.secret, c.customFields[0], c.customFields[1], c.iat, c.scope]; 
     return c;
 }
 function formatLeaf (leaf) { 
@@ -57,7 +57,7 @@ function getPubkey(privKey) {
 
 // Returns address from privKey (albeit not in most efficient way!)
 function getAddress(privKey) {
-    return issueAdapter(privKey, "54321", "1234").creds.addr
+    return issueAdapter(privKey, "54321", "1234").creds.issuerAddress
 }
 
 module.exports = {
