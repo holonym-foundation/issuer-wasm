@@ -1,0 +1,16 @@
+{
+  "name": "holonym-wasm-issuer",
+  "collaborators": [
+    "Nanak Nihal Khalsa <nanak@holonym.id>"
+  ],
+  "description": "WASM bindings to run a Holonym issuer",
+  "version": "0.1.0",
+  "files": [
+    "holonym_wasm_issuer_bg.wasm",
+    "holonym_wasm_issuer.js",
+    "holonym_wasm_issuer.d.ts",
+    "wrapper.js"
+  ],
+  "main": "wrapper.js",
+  "types": "holonym_wasm_issuer.d.ts"
+}
