@@ -1,4 +1,7 @@
 # Holonym Issuer WASM Bindings
+
+## Warning
+*This makes no gaurantees of constant time for cryptographic operations. Do not use on a machine that may be vulnerable to side-channel attacks*
 ## Installation
 `npm i holonym-wasm-issuer`
 ## Usage
