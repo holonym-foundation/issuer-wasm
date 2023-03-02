@@ -51,7 +51,6 @@ function issueAdapter(privateKey, field1, field2) {
 }
 
 function signAdapter(privateKey, message) {
-    console.log('123412341231234', sign(privateKey, message))
     return formatSignature(JSON.parse(sign(privateKey, message)));
 }
 

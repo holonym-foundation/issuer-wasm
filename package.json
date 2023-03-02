@@ -4,7 +4,7 @@
     "Nanak Nihal Khalsa <nanak@holonym.id>"
   ],
   "description": "WASM bindings to run a Holonym issuer",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/holonym-foundation/issuer-wasm.git"
