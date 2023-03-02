@@ -1,4 +1,4 @@
-const { issue } = require("./holonym_wasm_issuer.js");
+const { sign, issue } = require("./holonym_wasm_issuer.js");
 
 function formatFr (frString) { return frString.replace("Fr(","").replace(")","") };
 
@@ -50,6 +50,11 @@ function issueAdapter(privateKey, field1, field2) {
     return format(JSON.parse(issue(privateKey, field1, field2)));
 }
 
+function signAdapter(privateKey, message) {
+    console.log('123412341231234', sign(privateKey, message))
+    return formatSignature(JSON.parse(sign(privateKey, message)));
+}
+
 // Returns pubKey from privKey (albeit not in most efficient way!)
 function getPubkey(privKey) {
     return issueAdapter(privKey, "69", "69").pubkey
@@ -62,6 +67,7 @@ function getAddress(privKey) {
 
 module.exports = {
     issue : issueAdapter,
+    sign : signAdapter,
     getPubkey : getPubkey,
     getAddress : getAddress
 }
