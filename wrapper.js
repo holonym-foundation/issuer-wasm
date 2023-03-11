@@ -1,4 +1,4 @@
-const { sign, issue } = require("./holonym_wasm_issuer.js");
+const { sign, issue, get_pubkey, get_pubkey_times_8 } = require("./holonym_wasm_issuer.js");
 
 function formatFr (frString) { return frString.replace("Fr(","").replace(")","") };
 
@@ -24,7 +24,7 @@ function formatCreds (creds) {
 function formatLeaf (leaf) { 
     return formatFr(leaf)
 }
-function formatPubkey (pk) {
+function formatPoint (pk) {
     return {
         x: formatFr(pk[0]),
         y: formatFr(pk[1])
@@ -40,7 +40,7 @@ function format (issuerResponse) {
     return {
         creds: formatCreds(issuerResponse.credentials),
         leaf : formatLeaf(issuerResponse.leaf),
-        pubkey: formatPubkey(issuerResponse.pubkey),
+        pubkey: formatPoint(issuerResponse.pubkey),
         signature: formatSignature(issuerResponse.signature),
 
     } 
@@ -54,11 +54,14 @@ function signAdapter(privateKey, message) {
     return formatSignature(JSON.parse(sign(privateKey, message)));
 }
 
-// Returns pubKey from privKey (albeit not in most efficient way!)
+// Returns pubKey from privKey
 function getPubkey(privKey) {
-    return issueAdapter(privKey, "69", "69").pubkey
+    return formatPoint(JSON.parse(get_pubkey(privKey)))
 }
 
+function getPubkeyTimes8(privKey) {
+    return formatPoint(JSON.parse(get_pubkey_times_8(privKey)))
+}
 // Returns address from privKey (albeit not in most efficient way!)
 function getAddress(privKey) {
     return issueAdapter(privKey, "54321", "1234").creds.issuerAddress
@@ -68,5 +71,6 @@ module.exports = {
     issue : issueAdapter,
     sign : signAdapter,
     getPubkey : getPubkey,
-    getAddress : getAddress
+    getAddress : getAddress,
+    getPubkeyTimes8 : getPubkeyTimes8,
 }
